@@ -7,9 +7,10 @@ package Parse::CPAN::Perms;
 # VERSION
 
 #-----------------------------------------------------------------------------
- 
+
 use Moose;
 use IO::Zlib;
+use Carp qw(croak);
 
 #-----------------------------------------------------------------------------
 
@@ -44,7 +45,7 @@ sub _build_perms {
 	my $permsfile = $self->permsfile;
 
     my $fh = IO::Zlib->new( $permsfile, "rb" );
-    die "Failed to read $permsfile: $!" unless $fh;
+    croak "Failed to read $permsfile: $!" unless $fh;
     my $perms_data = $self->__read_perms($fh);
     $fh->close;
 
@@ -71,7 +72,7 @@ sub __read_perms {
     	$perms->{$module}->{$author} = $perm;
     }
 
-    return $perms; 
+    return $perms;
 }
 
 #-----------------------------------------------------------------------------
@@ -84,12 +85,12 @@ sub is_authorized {
     my $perms = $self->perms;
 
     # Avoid autovivification here...
-    my $is_authorized = exists $perms->{$module} 
+    my $is_authorized = exists $perms->{$module}
     	&& defined $perms->{$module}->{$author};
 
     return $is_authorized || 0;
 }
- 
+
 #-----------------------------------------------------------------------------
 1;
 

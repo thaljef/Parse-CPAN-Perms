@@ -6,6 +6,44 @@ Parse::CPAN::Perms - Parse 06perms.txt.gz
 
 version 0.001
 
+# SYNOPSIS
+
+    # Construction
+    my $perms = Parse::CPAN::Perms->new('path/to/06perms.txt.gz');
+
+    # Get all perms data as hash ref
+    my $perms_data = $perms->perms;
+
+    # Boolean convenience method
+    $perms->is_authorized(AUTHOR => 'Package::Name');
+
+# DESCRIPTION
+
+!! THIS MODULE IS EXPERIMENTAL.  INTERFACE IS SUBJECT TO CHANGE !!
+
+This module parses the `06perms.txt.gz` file from a CPAN-like repository.
+At this time, it only parses the compressed form and it provides no mechanism
+for adding new permissions or writing the data back out to a file.  If you
+desire those features, please contact the author.
+
+# CONSTRUCTOR
+
+- new('path/to/06perms.txt.gz')
+- new(parmsfile => 'path/to/06perms.txt.gz')
+
+    Constructs a new instance of Parse::CPAN::Perms from the specified perms file.
+    The file must exist and must be readable.
+
+## METHODS
+
+- perms()
+
+    Returns all the permission data as a hash reference
+
+- is\_authorized(AUTHOR => 'Package::Name')
+
+    Returns true if the author has permission for the package
+
 # SUPPORT
 
 ## Perldoc
