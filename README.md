@@ -44,6 +44,12 @@ desire those features, please contact the author.
 
     Returns true if the author has permission for the package
 
+# SEE ALSO
+
+[CPAN::Repository::Perms](http://search.cpan.org/perldoc?CPAN::Repository::Perms) serves a similar purpose, but is a much more robust 
+module.  However, it is bundled with several other CPAN-related modules which 
+may or may not fit your needs and desires.
+
 # SUPPORT
 
 ## Perldoc
