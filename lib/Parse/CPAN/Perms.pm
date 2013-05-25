@@ -144,3 +144,9 @@ Returns all the permission data as a hash reference
 Returns true if the author has permission for the package
 
 =back
+
+=head1 SEE ALSO
+
+L<CPAN::Repository::Perms> serves a similar purpose, but is a much more robust 
+module.  However, it is bundled with several other CPAN-related modules which 
+may or may not fit your needs and desires.
