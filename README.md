@@ -80,10 +80,6 @@ from your repository :)
 
     git clone git://github.com/thaljef/Parse-CPAN-Perms.git
 
-# CONTRIBUTOR
-
-Jeffrey Ryan Thalhammer <jeff@imaginative-software.com>
-
 # AUTHOR
 
 Jeffrey Ryan Thalhammer <jeff@stratopan.com>
