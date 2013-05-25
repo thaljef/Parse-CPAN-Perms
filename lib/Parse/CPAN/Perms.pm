@@ -68,7 +68,7 @@ sub __read_perms {
         }
 
     	chomp;
-    	my ($module, $author, $perm) = split /\s*,\s*/;
+        my ($module, $author, $perm) = split m/\s* , \s*/x;
     	$perms->{$module}->{$author} = $perm;
     }
 
