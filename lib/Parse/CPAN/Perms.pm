@@ -94,3 +94,52 @@ sub is_authorized {
 1;
 
 __END__
+
+=pod
+
+=head1 SYNOPSIS
+
+  # Construction
+  my $perms = Parse::CPAN::Perms->new('path/to/06perms.txt.gz');
+
+  # Get all perms data as hash ref
+  my $perms_data = $perms->perms;
+
+  # Boolean convenience method
+  $perms->is_authorized(AUTHOR => 'Package::Name');
+
+=head1 DESCRIPTION
+
+!! THIS MODULE IS EXPERIMENTAL.  INTERFACE IS SUBJECT TO CHANGE !!
+
+This module parses the F<06perms.txt.gz> file from a CPAN-like repository.
+At this time, it only parses the compressed form and it provides no mechanism
+for adding new permissions or writing the data back out to a file.  If you
+desire those features, please contact the author.
+
+=head1 CONSTRUCTOR
+
+=over 4
+
+=item new('path/to/06perms.txt.gz')
+
+=item new(parmsfile => 'path/to/06perms.txt.gz')
+
+Constructs a new instance of Parse::CPAN::Perms from the specified perms file.
+The file must exist and must be readable.
+
+=back
+
+=head2 METHODS
+
+=over 4
+
+=item perms()
+
+Returns all the permission data as a hash reference
+
+=item is_authorized(AUTHOR => 'Package::Name')
+
+Returns true if the author has permission for the package
+
+=back
