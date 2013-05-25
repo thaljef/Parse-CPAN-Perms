@@ -7,8 +7,89 @@ package Parse::CPAN::Perms;
 # VERSION
 
 #-----------------------------------------------------------------------------
+ 
+use Moose;
+use IO::Zlib;
+
+#-----------------------------------------------------------------------------
+
+has permsfile => (
+	is        => 'ro',
+	isa       => 'Str',
+	required  => 1,
+);
 
 
+has perms => (
+	is        => 'ro',
+	isa       => 'HashRef',
+	builder   => '_build_perms',
+);
+
+#-----------------------------------------------------------------------------
+
+around BUILDARGS => sub {
+	my $orig  = shift;
+  	my $class = shift;
+
+   	return {permsfile => $_[0]} if @_ == 1 && !ref $_[0];
+    return $class->$orig(@_);
+ };
+
+#-----------------------------------------------------------------------------
+
+sub _build_perms {
+	my ($self) = @_;
+
+	my $permsfile = $self->permsfile;
+
+    my $fh = IO::Zlib->new( $permsfile, "rb" );
+    die "Failed to read $permsfile: $!" unless $fh;
+    my $perms_data = $self->__read_perms($fh);
+    $fh->close;
+
+    return $perms_data;
+}
+
+#-----------------------------------------------------------------------------
+
+sub __read_perms {
+	my ($self, $fh) = @_;
+
+	my $inheader = 1;
+	my $perms = {};
+
+    while (<$fh>) {
+
+        if ($inheader) {
+            $inheader = 0 if not m/ \S /x;
+            next;
+        }
+
+    	chomp;
+    	my ($module, $author, $perm) = split /\s*,\s*/;
+    	$perms->{$module}->{$author} = $perm;
+    }
+
+    return $perms; 
+}
+
+#-----------------------------------------------------------------------------
+
+sub is_authorized {
+    my ( $self, $author, $module ) = @_;
+
+    return 0 unless $author && $module;
+
+    my $perms = $self->perms;
+
+    # Avoid autovivification here...
+    my $is_authorized = exists $perms->{$module} 
+    	&& defined $perms->{$module}->{$author};
+
+    return $is_authorized || 0;
+}
+ 
 #-----------------------------------------------------------------------------
 1;
 
