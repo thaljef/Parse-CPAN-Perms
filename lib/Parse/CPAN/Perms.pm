@@ -30,11 +30,14 @@ has perms => (
 #-----------------------------------------------------------------------------
 
 around BUILDARGS => sub {
-	my $orig  = shift;
-  	my $class = shift;
+	my ($orig, $class)  = (shift, shift);
 
-   	return {permsfile => $_[0]} if @_ == 1 && !ref $_[0];
-    return $class->$orig(@_);
+        return $class->$orig(@_) unless @_ %2 or ref $_[0] eq 'HASH';
+
+        my $path = shift;
+        my $arg = -f $path ? $path : "$path/modules/06perms.txt.gz";
+
+   	return {permsfile => $arg, @_};
  };
 
 #-----------------------------------------------------------------------------
@@ -84,11 +87,9 @@ sub is_authorized {
 
     my $perms = $self->perms;
 
-    # Avoid autovivification here...
-    my $is_authorized = exists $perms->{$module}
-    	&& defined $perms->{$module}->{$author};
-
-    return $is_authorized || 0;
+    return 1 if not exists $perms->{$module}; # Old mods may not have perms
+    return 1 if exists $perms->{$module}->{$author};
+    return 0;
 }
 
 #-----------------------------------------------------------------------------
