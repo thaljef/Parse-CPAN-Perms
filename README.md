@@ -4,7 +4,7 @@ Parse::CPAN::Perms - Parse 06perms.txt.gz
 
 # VERSION
 
-version 0.001
+version 0.002
 
 # SYNOPSIS
 
