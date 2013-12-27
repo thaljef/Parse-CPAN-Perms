@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.003     2013-12-26 23:15:35 America/Los_Angeles
+
       [BUG FIXES]
 
       - Fix test failures that resulted from hash randomization
