@@ -4,7 +4,7 @@ Parse::CPAN::Perms - Parse 06perms.txt.gz
 
 # VERSION
 
-version 0.003
+version 0.004
 
 # SYNOPSIS
 
@@ -44,9 +44,16 @@ desire those features, please contact the author.
 
     Returns true if the author has permission for the package
 
+- refresh( $force )
+
+    Causes the permisions hash to be cleared if the `permsfile` has
+    changed since the last time it was read.  The permissions hash will be
+    lazily re-read from disk the next time it is needed.  If `$force` is
+    true, then the permissions hash is cleared unconditionally.
+
 # SEE ALSO
 
-[CPAN::Repository::Perms](https://metacpan.org/pod/CPAN::Repository::Perms) serves a similar purpose, but is a much more robust 
+[CPAN::Repository::Perms](http://search.cpan.org/perldoc?CPAN::Repository::Perms) serves a similar purpose, but is a much more robust 
 module.  However, it is bundled with several other CPAN-related modules which 
 may or may not fit your needs and desires.
 
@@ -102,7 +109,7 @@ in addition to those websites please use your favorite search engine to discover
 ## Internet Relay Chat
 
 You can get live help by using IRC ( Internet Relay Chat ). If you don't know what IRC is,
-please read this excellent guide: [http://en.wikipedia.org/wiki/Internet_Relay_Chat](http://en.wikipedia.org/wiki/Internet_Relay_Chat). Please
+please read this excellent guide: [http://en.wikipedia.org/wiki/Internet\_Relay\_Chat](http://en.wikipedia.org/wiki/Internet\_Relay\_Chat). Please
 be courteous and patient when talking to us, as we might be busy or sleeping! You can join
 those networks/channels and get help:
 
