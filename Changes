@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.004     2014-03-30 21:43:21 America/Los_Angeles
+
       [ENHANCEMENTS]
 
       - Added a refresh() method that clears the permission hash
