@@ -170,7 +170,7 @@ Returns all the permission data as a hash reference
 
 Returns true if the author has permission for the package
 
-=items refresh( $force )
+=item refresh( $force )
 
 Causes the permisions hash to be cleared if the C<permsfile> has
 changed since the last time it was read.  The permissions hash will be
